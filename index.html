@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Hafsa</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Sacramento&family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
+    /* ---------- Basic Setup ---------- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
       font-family: 'Sacramento', cursive;
-      background: linear-gradient(to bottom right, #ffd6e8, #ffeaf3);
-      text-align: center;
       overflow-x: hidden;
+      background: linear-gradient(135deg, #ffd6e8, #ffeaf3);
+      text-align: center;
+      min-height: 100vh;
+      position: relative;
     }
 
+    /* ---------- Animated Glowing Heading ---------- */
     h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 4rem;
-      margin-top: 60px;
+      margin-top: 50px;
       color: #d63384;
-      animation: bounceIn 2s ease-out;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      text-shadow: 0 0 5px #ff77c9, 0 0 10px #ff5cab, 0 0 20px #ff77c9;
+      animation: glow 2s infinite alternate, bounceIn 2s ease-out;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #ff77c9, 0 0 10px #ff5cab, 0 0 20px #ff77c9; }
+      50% { text-shadow: 0 0 15px #ff77c9, 0 0 25px #ff5cab, 0 0 40px #ff77c9; }
+      100% { text-shadow: 0 0 5px #ff77c9, 0 0 10px #ff5cab, 0 0 20px #ff77c9; }
     }
 
     @keyframes bounceIn {
@@ -31,6 +41,7 @@
       100% { transform: scale(1); }
     }
 
+    /* ---------- Letter ---------- */
     .letter {
       width: 80%;
       max-width: 700px;
@@ -52,6 +63,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* ---------- Surprise Button ---------- */
     .surprise-btn {
       font-family: 'Dancing Script', cursive;
       background: #d63384;
@@ -72,6 +84,7 @@
       transform: scale(1.15);
     }
 
+    /* ---------- Surprise Messages ---------- */
     .surprise-message {
       display: none;
       margin-top: 20px;
@@ -80,12 +93,9 @@
       animation: fadeIn 1.5s ease-in-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* Falling hearts */
+    /* ---------- Floating Hearts ---------- */
     .heart {
       position: fixed;
       top: -10px;
@@ -99,58 +109,46 @@
       100% { transform: translateY(100vh) rotate(360deg); }
     }
 
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.8rem;
-        margin-top: 40px;
-      }
-      .letter {
-        width: 90%;
-        padding: 15px;
-        font-size: 1.2rem;
-      }
-      .surprise-btn {
-        padding: 12px 30px;
-        font-size: 1.2rem;
-        border-radius: 25px;
-      }
-      .surprise-message {
-        font-size: 1.2rem;
-      }
-      .heart {
-        font-size: 14px;
-      }
+    /* ---------- Floating Balloons ---------- */
+    .balloon {
+      position: fixed;
+      bottom: -50px;
+      font-size: 2rem;
+      animation: rise linear infinite;
     }
 
+    @keyframes rise {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      h1 { font-size: 3rem; margin-top: 40px; }
+      .letter { width: 90%; padding: 15px; font-size: 1.2rem; }
+      .surprise-btn { padding: 12px 30px; font-size: 1.2rem; border-radius: 25px; }
+      .surprise-message { font-size: 1.2rem; }
+      .heart { font-size: 14px; }
+      .balloon { font-size: 1.5rem; }
+    }
     @media (max-width: 480px) {
-      h1 {
-        font-size: 2.2rem;
-        margin-top: 30px;
-      }
-      .letter {
-        font-size: 1rem;
-        padding: 10px;
-      }
-      .surprise-btn {
-        padding: 10px 20px;
-        font-size: 1rem;
-      }
-      .surprise-message {
-        font-size: 1rem;
-      }
-      .heart {
-        font-size: 12px;
-      }
+      h1 { font-size: 2.2rem; margin-top: 30px; }
+      .letter { font-size: 1rem; padding: 10px; }
+      .surprise-btn { padding: 10px 20px; font-size: 1rem; }
+      .surprise-message { font-size: 1rem; }
+      .heart { font-size: 12px; }
+      .balloon { font-size: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background music -->
-  <audio autoplay loop>
+  <!-- Background Music with Control -->
+  <audio id="bgMusic" autoplay loop>
     <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
   </audio>
+  <button class="surprise-btn" onclick="toggleMusic()" style="position:fixed;top:10px;right:10px;padding:10px 15px;font-size:1rem;">🔊 Music</button>
 
   <h1>Happy Birthday Hafsa</h1>
 
@@ -158,12 +156,12 @@
 
   <button class="surprise-btn" onclick="showSurprise()">Reveal Surprise</button>
 
-  <div class="surprise-message" id="surprise">
-    You mean more to me than words can explain, I Love You Soo Much Hafsa ❤.
-  </div>
+  <div class="surprise-message" id="surprise1">You mean more to me than words can explain ❤.</div>
+  <div class="surprise-message" id="surprise2">I Love You So Much Hafsa 💖.</div>
+  <div class="surprise-message" id="surprise3">May your life always be filled with happiness and love ✨.</div>
 
   <script>
-    // JS Typewriter Effect for full text
+    /* ---------- Typewriter Letter ---------- */
     const text = `Dear Hafsa,\n\nOn your special day, I just want to say that you are a blessing in my life. Your smile brings warmth, and your presence brings peace. May your birthday be filled with joy, calmness, and all the love you deserve.\n\n— Waseem Khan`;
     let i = 0;
     function typeWriter() {
@@ -175,13 +173,7 @@
     }
     typeWriter();
 
-    // Surprise Button + Confetti
-    function showSurprise() {
-      document.getElementById('surprise').style.display = 'block';
-      createConfetti();
-    }
-
-    // Falling hearts animation
+    /* ---------- Hearts Animation ---------- */
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
@@ -191,11 +183,25 @@
       heart.style.animationDuration = 3 + Math.random() * 2 + 's';
       heart.style.transform = `rotate(${Math.random()*360}deg)`;
       document.body.appendChild(heart);
-      setTimeout(() => { heart.remove(); }, 5000);
+      setTimeout(() => heart.remove(), 5000);
     }
     setInterval(createHeart, 300);
 
-    // Confetti animation
+    /* ---------- Balloons Animation ---------- */
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      const emojis = ['🎈','🎉','🎊','💖','💜'];
+      balloon.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.fontSize = (20 + Math.random() * 30) + 'px';
+      balloon.style.animationDuration = 6 + Math.random() * 4 + 's';
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 10000);
+    }
+    setInterval(createBalloon, 800);
+
+    /* ---------- Confetti Explosion ---------- */
     function createConfetti() {
       for (let i = 0; i < 100; i++) {
         const confetti = document.createElement('div');
@@ -212,7 +218,27 @@
         setTimeout(() => { confetti.remove(); }, fallDuration*1000);
       }
     }
+
+    /* ---------- Sequential Surprise Messages ---------- */
+    let surpriseIndex = 1;
+    function showSurprise() {
+      const msg = document.getElementById(`surprise${surpriseIndex}`);
+      if (msg) {
+        msg.style.display = 'block';
+        msg.classList.add('fadeIn');
+        createConfetti();
+        surpriseIndex++;
+        setTimeout(showSurprise, 2000);
+      }
+    }
+
+    /* ---------- Music Toggle ---------- */
+    function toggleMusic() {
+      const music = document.getElementById('bgMusic');
+      if(music.paused) music.play();
+      else music.pause();
+    }
   </script>
 
-</body> 
+</body>
 </html>
